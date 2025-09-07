@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Branding That Actually Brings in Clients | Brandscape Studio Kenya</title>
+    <meta name="description" content="Professional branding and design automation for Kenyan businesses. Get complete brand identity, logos, and marketing materials that bring in clients.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #1f2937;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #2563eb;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #1d4ed8 100%);
+            color: white;
+            padding: 10rem 5% 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="30" cy="30" r="2"/></g></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #f97316;
+            color: white;
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3);
+        }
+
+        .cta-button:hover {
+            background: #ea580c;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+        }
+
+        .services h2 {
+            text-align: center;
+            margin-bottom: 4rem;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #1f2937;
+            font-weight: 800;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 20px 60px rgba(37, 99, 235, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            color: #2563eb;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .service-card p {
+            margin-bottom: 1.5rem;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .price {
+            display: block;
+            color: #10b981;
+            font-weight: 800;
+            font-size: 1.3rem;
+            margin-top: 1rem;
+        }
+
+        /* About Section */
+        .about {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 6rem 5%;
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 2rem;
+            color: #1f2937;
+            font-weight: 800;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #4b5563;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 6rem 5%;
+            text-align: center;
+            background: #ffffff;
+        }
+
+        .testimonials h2 {
+            margin-bottom: 4rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: #1f2937;
+        }
+
+        .testimonial {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #f9fafb;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .testimonial p {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #374151;
+        }
+
+        .testimonial cite {
+            display: block;
+            font-weight: 700;
+            color: #2563eb;
+            font-style: normal;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            padding: 6rem 5%;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 2rem;
+            font-weight: 800;
+        }
+
+        .contact p {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-item strong {
+            display: block;
+            color: #f97316;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 2rem 5%;
+            border-top: 1px solid #374151;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-card,
+        .testimonial {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#home" class="logo">Brandscape Studio</a>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Professional Branding That Actually Brings in Clients</h1>
+                <p>Smart design automation for Kenyan businesses who need results, not just pretty logos. Get your complete brand identity in days, not months — designed specifically for the East African market.</p>
+                <a href="#contact" class="cta-button">Get Your Brand Strategy</a>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <h2>Everything You Need to Build a Winning Brand</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Complete Brand Identity</h3>
+                    <p>Professional logo design, color palette, typography, and brand guidelines that work across all platforms — from M-Pesa graphics to Instagram posts.</p>
+                    <span class="price">Starting at KSH 35,000</span>
+                </div>
+                <div class="service-card">
+                    <h3>Design Automation Setup</h3>
+                    <p>Custom templates and automated systems that keep your brand consistent across every piece of marketing — save hours every week.</p>
+                    <span class="price">Starting at KSH 25,000</span>
+                </div>
+                <div class="service-card">
+                    <h3>Complete Brand Package</h3>
+                    <p>Everything you need to launch: brand identity, marketing materials, social media templates, and business card designs — ready to use immediately.</p>
+                    <span class="price">Starting at KSH 55,000</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Why Kenyan Businesses Choose Brandscape Studio</h2>
+                    <p>We understand the unique challenges of building a brand in Kenya. From designing for mobile-first audiences to creating materials that work both digitally and in print, we've helped over 100 local businesses stand out in competitive markets.</p>
+                    <p>Our automation-first approach means you get professional results fast, without the traditional agency delays or costs. We build brands that work as hard as you do.</p>
+                </div>
+                <div class="about-stats">
+                    <div style="text-align: center;">
+                        <h3 style="font-size: 3rem; color: #2563eb; margin-bottom: 0.5rem;">100+</h3>
+                        <p>Brands Launched</p>
+                        <h3 style="font-size: 3rem; color: #10b981; margin: 1rem 0 0.5rem;">7 Days</h3>
+                        <p>Average Delivery Time</p>
+                        <h3 style="font-size: 3rem; color: #f97316; margin: 1rem 0 0.5rem;">50%+</h3>
+                        <p>Client Growth Rate</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2>What Our Clients Say</h2>
+            <div class="testimonial">
+                <p>"Brandscape Studio completely transformed our business image. Within two weeks of launching our new brand, our client inquiries doubled. The automation systems they set up save us hours every week."</p>
+                <cite>— Jane Kimani, Nairobi Business Coach</cite>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2>Ready to Build Your Brand?</h2>
+            <p>Let's create a brand that brings in clients and builds trust with your audience.</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <strong>Email</strong>
+                    hello@brandscapestudio.com
+                </div>
+                <div class="contact-item">
+                    <strong>Phone & M-Pesa</strong>
+                    +254 702 227 906
+                </div>
+                <div class="contact-item">
+                    <strong>Location</strong>
+                    Nairobi, Kenya
+                </div>
+            </div>
+
+            <a href="mailto:hello@brandscapestudio.com" class="cta-button">Start Your Project</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Brandscape Studio. Building brands that work as hard as you do.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
