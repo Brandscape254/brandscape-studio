@@ -827,7 +827,7 @@
             <p>Let's create a brand that brings in clients and builds trust with your audience.</p>
             
             <!-- N8N WEBHOOK FORM - Replace YOUR_N8N_WEBHOOK_URL with your actual webhook URL -->
-            <form class="contact-form" action="https://brandscape.app.n8n.cloud/webhook-test/brandscape-leads" method="POST" novalidate>
+            <form class="contact-form" action="YOUR_N8N_WEBHOOK_URL" method="POST" novalidate>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">Full Name *</label>
@@ -1031,6 +1031,12 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Show loading state
+            const submitButton = form.querySelector('.cta-button');
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+            
             // Validate all required fields
             let isFormValid = true;
             inputs.forEach(input => {
@@ -1065,37 +1071,120 @@
                     }
                 }
 
-                // Add timestamp and source
+                // Add metadata for better tracking
                 data.timestamp = new Date().toISOString();
                 data.source = 'website_contact_form';
+                data.userAgent = navigator.userAgent;
+                data.referrer = document.referrer;
+                data.pageUrl = window.location.href;
                 
                 // Submit to N8N webhook
                 fetch(form.action, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify(data)
                 })
                 .then(response => {
                     if (response.ok) {
-                        // Show success message
-                        const successMessage = form.querySelector('.success-message');
-                        successMessage.style.display = 'block';
-                        form.style.display = 'none';
-                        
-                        // Optional: Send email notification as backup
-                        console.log('Form submitted to N8N webhook successfully');
-                    } else {
-                        throw new Error('Network response was not ok');
+                        return response.json();
                     }
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                })
+                .then(result => {
+                    // Show personalized success message with response data
+                    const successMessage = form.querySelector('.success-message');
+                    const successText = document.getElementById('success-text');
+                    const followUpText = document.getElementById('follow-up-text');
+                    
+                    if (result.message) {
+                        successText.textContent = result.message;
+                    }
+                    
+                    if (result.followUpTime) {
+                        followUpText.textContent = `We'll get back to you within ${result.followUpTime}.`;
+                    }
+                    
+                    // Add lead priority styling
+                    const priorityColors = {
+                        'high': '#DC2626',
+                        'medium': '#D97706', 
+                        'low': '#059669'
+                    };
+                    
+                    if (result.priority && priorityColors[result.priority]) {
+                        successText.style.color = priorityColors[result.priority];
+                        followUpText.style.color = priorityColors[result.priority];
+                    }
+                    
+                    successMessage.style.display = 'block';
+                    form.style.display = 'none';
+                    
+                    // Scroll to success message
+                    successMessage.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                    
+                    // Optional: Send to Google Analytics
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'form_submit', {
+                            'event_category': 'Lead Generation',
+                            'event_label': 'Contact Form Success',
+                            'value': result.leadScore || 50
+                        });
+                    }
+                    
+                    console.log('✅ Form submitted successfully:', {
+                        leadId: result.leadId,
+                        priority: result.priority,
+                        score: result.leadScore
+                    });
                 })
                 .catch(error => {
-                    console.error('Error submitting to webhook:', error);
-                    // Fallback to mailto
-                    const mailtoLink = `mailto:novmbuya3@gmail.com?subject=New Contact Form Submission&body=${encodeURIComponent(JSON.stringify(data, null, 2))}`;
-                    window.location.href = mailtoLink;
+                    console.error('Detailed webhook error:', {
+                        message: error.message,
+                        stack: error.stack,
+                        webhookUrl: form.action,
+                        formData: data
+                    });
+                    
+                    // Reset button state
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                    
+                    // Show detailed error message
+                    const errorDiv = document.createElement('div');
+                    errorDiv.style.cssText = `
+                        background: rgba(239, 68, 68, 0.1);
+                        border: 2px solid #EF4444;
+                        color: #DC2626;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        margin-top: 1rem;
+                    `;
+                    errorDiv.innerHTML = `
+                        <p><strong>Connection Error: ${error.message}</strong></p>
+                        <p>Webhook URL: <code>${form.action}</code></p>
+                        <p><strong>Please try these alternatives:</strong></p>
+                        <ul>
+                            <li>📧 Email: <a href="mailto:novmbuya3@gmail.com?subject=Website Contact Form&body=${encodeURIComponent('Name: ' + data.name + '\\nEmail: ' + data.email + '\\nPhone: ' + data.phone + '\\nBusiness: ' + data.business + '\\nBudget: ' + data.budget + '\\nServices: ' + data.services.join(', ') + '\\nTimeline: ' + data.timeline + '\\nDescription: ' + data.description)}" style="color: #DC2626;">novmbuya3@gmail.com</a></li>
+                            <li>📱 WhatsApp: <a href="https://wa.me/254702227906?text=${encodeURIComponent('Hi, I submitted the contact form on your website. Name: ' + data.name + ', Email: ' + data.email)}" style="color: #DC2626;">+254 702 227 906</a></li>
+                            <li>🔄 Check your internet connection and try again</li>
+                        </ul>
+                        <details style="margin-top: 1rem;">
+                            <summary>Technical Details (for debugging)</summary>
+                            <pre style="font-size: 12px; margin-top: 0.5rem;">${JSON.stringify(data, null, 2)}</pre>
+                        </details>
+                    `;
+                    form.appendChild(errorDiv);
                 });
+            } else {
+                // Reset button state if validation failed
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
             }
         });
     </script>
